@@ -2,7 +2,7 @@
     $DB_host = "localhost";
     $DB_user = "root";
     $DB_pass = "";
-    $DB_name = "library_management_system";
+    $DB_name = "martdevelopers_coffee_shop";
     try
     {
         $DB_con = new PDO("mysql:host={$DB_host};dbname={$DB_name}",$DB_user,$DB_pass);
