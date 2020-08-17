@@ -99,7 +99,7 @@
     <!-- Page content -->
     <div class="container-fluid mt--7">
       <div class="row mt-5">
-        <div class="col-xl-6 mb-5 mb-xl-0">
+        <div class="col-xl-7 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
@@ -120,29 +120,32 @@
                     <th scope="col">Customer</th>
                     <th scope="col">Product</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Created At</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">
-                      /argon/
-                    </th>
-                    <td>
-                      4,569
-                    </td>
-                    <td>
-                      340
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                    </td>
-                  </tr>
+                  <?php
+                    $ret = "SELECT * FROM  coffee_shop_orders "; 
+                    $stmt = $mysqli->prepare($ret) ;
+                    $stmt->execute() ;
+                    $res = $stmt->get_result();
+                    while($order = $res->fetch_object())
+                    {
+                  ?>
+                    <tr>
+                      <th scope="row"><?php echo $order->order_code;?></th>
+                      <td><?php echo $order->customer_name;?></td>
+                      <td><?php echo $order->prod_name;?></td>
+                      <td><?php echo $order->prod_price;?></td>
+                      <td><?php echo $order->created_at;?></td>
+                    </tr>
+                  <?php }?>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <div class="col-xl-6">
+        <div class="col-xl-5">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
@@ -165,24 +168,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      1,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">60%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                  <?php
+                      $ret = "SELECT * FROM  coffee_shop_payments "; 
+                      $stmt = $mysqli->prepare($ret) ;
+                      $stmt->execute() ;
+                      $res = $stmt->get_result();
+                      while($payment = $res->fetch_object())
+                      {
+                  ?>
+                    <tr>
+                      <th scope="row">
+                        <?php echo $payment->pay_code;?>
+                      </th>
+                      <td>
+                        <?php echo $payment->pay_amt;?>
+                      </td>
+                      <td>
+                        <?php echo $payment->order_id;?>
+                      </td>
+                    </tr>
+                  <?php }?>
                 </tbody>
               </table>
             </div>
