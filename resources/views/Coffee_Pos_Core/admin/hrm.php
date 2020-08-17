@@ -79,6 +79,12 @@
                                         Delete
                                     </span>
                                 </a>
+
+                                <a href="update_staff.php?update=<?php echo $staff->staff_id;?>">
+                                    <span class="badge badge-success">
+                                        Update
+                                    </span>
+                                </a>
                             </td>                 
                         </tr>
                     <?php }?>
