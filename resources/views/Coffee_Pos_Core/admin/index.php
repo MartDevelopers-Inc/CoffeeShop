@@ -24,7 +24,7 @@
      }
     require_once('partials/_head.php');
 ?>
-<body class="bg-default">
+<body style="background-image: url(assets/img/theme/auth-bg.jpg); background-size: cover;" class="bg-default">
   <div class="main-content">
     <div class="header bg-gradient-primar py-7 py-lg-8">
       <div class="container">

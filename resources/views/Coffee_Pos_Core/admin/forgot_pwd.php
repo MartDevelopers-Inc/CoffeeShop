@@ -41,6 +41,7 @@ if(isset($_POST['reset_pwd']))
     require_once('partials/_head.php');
 ?>
 <body class="bg-default">
+<div style="background-image: url(assets/img/theme/auth-bg.jpg); background-size: cover;">
   <div class="main-content">
     <div class="header bg-gradient-primar py-7 py-lg-8">
       <div class="container">
@@ -57,9 +58,8 @@ if(isset($_POST['reset_pwd']))
     <div class="container mt--8 pb-5">
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
-          <div class="card bg-secondary shadow border-0">
+          <div class="card">
             <div class="card-body px-lg-5 py-lg-5">
-
               <form method="post" role="form">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
@@ -97,6 +97,7 @@ if(isset($_POST['reset_pwd']))
   <?php
     require_once('partials/_scripts.php');
   ?>
+</div>
 </body>
 
 </html>
