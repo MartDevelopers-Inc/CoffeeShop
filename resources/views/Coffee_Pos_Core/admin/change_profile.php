@@ -3,6 +3,91 @@
     include('config/config.php');
     include('config/checklogin.php');
     check_login();
+    //Update Profile
+    if(isset($_POST['ChangeProfile']))
+    {
+        $admin_id = $_SESSION['admin_id'];
+        $admin_name = $_POST['admin_name'];
+        $admin_email = $_POST['admin_email'];
+        $Qry = "UPDATE coffee_shop_admin SET admin_name =?, admin_email =? WHERE admin_id =?";
+        $postStmt = $mysqli->prepare($Qry);
+        //bind paramaters
+        $rc=$postStmt->bind_param('sss', $admin_name, $admin_email, $admin_id);
+        $postStmt->execute();
+        //declare a varible which will be passed to alert function
+        if($postStmt)
+        {
+            $success = "Account Updated" && header("refresh:1; url=dashboard.php");
+        }
+        else 
+        {
+            $err = "Please Try Again Or Try Later";
+        } 
+    }
+    if(isset($_POST['changePassword']))
+    {
+        
+       //Change Password
+       $error = 0;
+       if (isset($_POST['old_password']) && !empty($_POST['old_password'])) {
+           $old_password=mysqli_real_escape_string($mysqli,trim(sha1(md5($_POST['old_password']))));
+       }else{
+           $error = 1;
+           $err="Old Password Cannot Be Empty";
+       }
+       if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+           $new_password=mysqli_real_escape_string($mysqli,trim(sha1(md5($_POST['new_password']))));
+       }else{
+           $error = 1;
+           $err="New Password Cannot Be Empty";
+       }
+       if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+           $confirm_password=mysqli_real_escape_string($mysqli,trim(sha1(md5($_POST['confirm_password']))));
+       }else{
+           $error = 1;
+           $err="Confirmation Password Cannot Be Empty";
+       }
+
+       if(!$error)
+           {
+               $admin_id = $_SESSION['admin_id'];
+               $sql="SELECT * FROM coffee_shop_admin   WHERE admin_id = '$admin_id'";
+               $res=mysqli_query($mysqli,$sql);
+               if (mysqli_num_rows($res) > 0) {
+               $row = mysqli_fetch_assoc($res);
+               if ($old_password != $row['admin_password'])
+               {
+                   $err =  "Please Enter Correct Old Password";
+               }
+               elseif($new_password != $confirm_password)
+               {
+                   $err = "Confirmation Password Does Not Match";
+               }
+               else
+               {
+                       
+                $new_password  = sha1(md5($_POST['new_password']));
+                //Insert Captured information to a database table
+                $query="UPDATE coffee_shop_admin SET  admin_password =? WHERE admin_id =?";
+                $stmt = $mysqli->prepare($query);
+                //bind paramaters
+                $rc=$stmt->bind_param('ss', $new_password, $admin_id);
+                $stmt->execute();
+
+                //declare a varible which will be passed to alert function
+                if($stmt)
+                {
+                    $success = "Password Changed" && header("refresh:1; url=dashboard.php");
+                }
+                else 
+                {
+                    $err = "Please Try Again Or Try Later";
+                }
+           }
+        }
+       
+    }
+}
     require_once('partials/_head.php');
 ?>
 <body>
@@ -88,7 +173,6 @@
                   <h3 class="mb-0">My account</h3>
                 </div>
                 <div class="col-4 text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">Settings</a>
                 </div>
               </div>
             </div>
@@ -100,13 +184,13 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">User Name</label>
-                        <input type="text" name="admin_name" value="<?php echo $admin->admin_name;?>" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse">
+                        <input type="text" name="admin_name" value="<?php echo $admin->admin_name;?>" id="input-username" class="form-control form-control-alternative" ">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Email address</label>
-                        <input type="email" id="input-email" value="<?php echo $admin->admin_email;?>" name="admin_email" class="form-control form-control-alternative" placeholder="jesse@example.com">
+                        <input type="email" id="input-email" value="<?php echo $admin->admin_email;?>" name="admin_email" class="form-control form-control-alternative" >
                       </div>
                     </div>
 
@@ -140,16 +224,15 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Confirm New Password</label>
-                        <input type="password"  name="new_password" class="form-control form-control-alternative" >
+                        <input type="password"  name="confirm_password" class="form-control form-control-alternative" >
                       </div>
                     </div>
 
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <input type="submit"  id="input-email"   name="ChangeProfile" class="btn btn-success form-control-alternative" value="Submit"">
+                        <input type="submit"  id="input-email"   name="changePassword" class="btn btn-success form-control-alternative" value="Change Password">
                       </div>
                     </div>
-
                   </div>
                   </div>
                 </div>
