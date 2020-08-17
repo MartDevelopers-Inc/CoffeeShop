@@ -48,7 +48,7 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <h3 class="mb-0">Card tables</h3>
+              <a href="add_staff.php" class="btn btn-outline-success">Add New Staff</a>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
