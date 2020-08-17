@@ -27,25 +27,11 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" required name="admin_email" placeholder="Email" type="email">
+                    <input class="form-control" required name="reset_email" placeholder="Email" type="email">
                   </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" required name="admin_password" placeholder="Password" type="password">
-                  </div>
-                </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Remember me</span>
-                  </label>
                 </div>
                 <div class="text-center">
-                  <button type="button" name="login" class="btn btn-primary my-4">Log In</button>
+                  <button type="button" name="reset_pwd" class="btn btn-primary my-4">Reset Password</button>
                 </div>
               </form>
 
@@ -53,7 +39,7 @@
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="forgot_pwd.php" class="text-light"><small>Forgot password?</small></a>
+              <a href="index.php" class="text-light"><small>Log In?</small></a>
             </div>
           </div>
         </div>
