@@ -1,4 +1,27 @@
 <?php
+     session_start();
+     include('config/config.php');
+     //login 
+     if(isset($_POST['login']))
+     {
+        $admin_email = $_POST['admin_email'];
+        $admin_password = sha1(md5($_POST['admin_password']));//double encrypt to increase security
+        $stmt=$mysqli->prepare("SELECT admin_email, admin_password, admin_id  FROM   coffee_shop_admin WHERE (admin_email =? AND admin_password =?)");//sql to log in user
+        $stmt->bind_param('ss',  $admin_email, $admin_password);//bind fetched parameters
+        $stmt->execute();//execute bind 
+        $stmt -> bind_result($admin_email, $admin_password, $admin_id);//bind result
+        $rs=$stmt->fetch();
+        $_SESSION['admin_id'] = $admin_id;
+        if($rs)
+        {
+          //if its sucessfull
+          header("location:dashboard.php");
+        }
+        else
+        {
+          $err = "Incorrect Authentication Credentials ";
+        }
+     }
     require_once('partials/_head.php');
 ?>
 <body class="bg-default">
@@ -20,7 +43,6 @@
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary shadow border-0">
             <div class="card-body px-lg-5 py-lg-5">
-
               <form method="post" role="form">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
@@ -45,7 +67,7 @@
                   </label>
                 </div>
                 <div class="text-center">
-                  <button type="button" name="login" class="btn btn-primary my-4">Log In</button>
+                  <button type="submit" name="login" class="btn btn-primary my-4">Log In</button>
                 </div>
               </form>
 
