@@ -1,13 +1,12 @@
 <?php
-  $admin_id = $_SESSION['admin_id'];
-  //$login_id = $_SESSION['login_id'];
-  $ret = "SELECT * FROM  coffee_shop_admin  WHERE admin_id = '$admin_id'"; 
-  $stmt = $mysqli->prepare($ret) ;
-  $stmt->execute() ;
-  $res = $stmt->get_result();
-  while($admin = $res->fetch_object())
-  {
-      
+$admin_id = $_SESSION['admin_id'];
+//$login_id = $_SESSION['login_id'];
+$ret = "SELECT * FROM  coffee_shop_admin  WHERE admin_id = '$admin_id'";
+$stmt = $mysqli->prepare($ret);
+$stmt->execute();
+$res = $stmt->get_result();
+while ($admin = $res->fetch_object()) {
+
 ?>
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
@@ -123,4 +122,4 @@
     </div>
   </nav>
 
-<?php }?>
+<?php } ?>
