@@ -13,7 +13,7 @@
           $stmt->close();	 
          if($stmt)
          {
-             $success = "Deleted" && header("refresh:1; url=customes.php");
+             $success = "Deleted" && header("refresh:1; url=products.php");
          }
          else
          {
