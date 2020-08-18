@@ -62,7 +62,7 @@ require_once('partials/_head.php');
                 </thead>
                 <tbody>
                   <?php
-                  $ret = "SELECT * FROM  coffee_shop_customers ";
+                  $ret = "SELECT * FROM  coffee_shop_customers  ORDER BY `coffee_shop_customers`.`created_at` DESC ";
                   $stmt = $mysqli->prepare($ret);
                   $stmt->execute();
                   $res = $stmt->get_result();
