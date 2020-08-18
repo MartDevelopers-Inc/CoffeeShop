@@ -120,12 +120,12 @@ while ($admin = $res->fetch_object()) {
         <!-- Navigation -->
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+            <a class="nav-link" href="orders_reports.php">
               <i class="fas fa-shopping-basket"></i> Orders
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+            <a class="nav-link" href="payments_reports.php">
               <i class="fas fa-funnel-dollar"></i> Payments
             </a>
           </li>
@@ -134,7 +134,7 @@ while ($admin = $res->fetch_object()) {
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
             <a class="nav-link" href="logout.php">
-              <i class="ni ni-user-run text-danger"></i> Log Out
+              <i class="fas fa-sign-out-alt text-danger"></i> Log Out
             </a>
           </li>
         </ul>
