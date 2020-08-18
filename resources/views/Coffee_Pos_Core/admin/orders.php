@@ -71,7 +71,7 @@
                             <td><?php echo $prod->prod_name;?></td>    
                             <td>Ksh <?php echo $prod->prod_price;?></td>   
                             <td>
-                                <a href="make_oder.php?prod_id=<?php echo $prod->prod_id;?>&prod_name<?php echo $prod->prod_name;?>&prod_price=<?php echo $prod->prod_price;?>">
+                                <a href="make_oder.php?prod_id=<?php echo $prod->prod_id;?>&prod_name=<?php echo $prod->prod_name;?>&prod_price=<?php echo $prod->prod_price;?>">
                                     <span class="badge badge-success">
                                       <i class ="fas fa-cart-plus"></i>    
                                       Place Order
