@@ -89,12 +89,12 @@ while ($admin = $res->fetch_object()) {
           </li>
           <li class="nav-item">
             <a class="nav-link" href="hrm.php">
-              <i class="ni ni-badge text-primary"></i> HRM
+              <i class="fas fa-user-tie text-primary"></i> HRM
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="customes.php">
-              <i class="ni ni-single-02 text-primary"></i> Customers
+              <i class="fas fa-users text-primary"></i> Customers
             </a>
           </li>
           <li class="nav-item">
@@ -112,6 +112,26 @@ while ($admin = $res->fetch_object()) {
               <i class="ni ni-credit-card text-primary"></i> Payments
             </a>
           </li>
+        </ul>
+        <!-- Divider -->
+        <hr class="my-3">
+        <!-- Heading -->
+        <h6 class="navbar-heading text-muted">Reporting</h6>
+        <!-- Navigation -->
+        <ul class="navbar-nav mb-md-3">
+          <li class="nav-item">
+            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+              <i class="fas fa-shopping-basket"></i> Orders
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+              <i class="fas fa-funnel-dollar"></i> Payments
+            </a>
+          </li>
+        </ul>
+        <hr class="my-3">
+        <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
             <a class="nav-link" href="logout.php">
               <i class="ni ni-user-run text-danger"></i> Log Out
