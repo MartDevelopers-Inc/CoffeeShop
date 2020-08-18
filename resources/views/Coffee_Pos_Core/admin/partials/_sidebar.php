@@ -1,13 +1,12 @@
 <?php
-  $admin_id = $_SESSION['admin_id'];
-  //$login_id = $_SESSION['login_id'];
-  $ret = "SELECT * FROM  coffee_shop_admin  WHERE admin_id = '$admin_id'"; 
-  $stmt = $mysqli->prepare($ret) ;
-  $stmt->execute() ;
-  $res = $stmt->get_result();
-  while($admin = $res->fetch_object())
-  {
-      
+$admin_id = $_SESSION['admin_id'];
+//$login_id = $_SESSION['login_id'];
+$ret = "SELECT * FROM  coffee_shop_admin  WHERE admin_id = '$admin_id'";
+$stmt = $mysqli->prepare($ret);
+$stmt->execute();
+$res = $stmt->get_result();
+while ($admin = $res->fetch_object()) {
+
 ?>
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
@@ -90,12 +89,12 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="hrm.php">
-              <i class="ni ni-badge text-primary"></i> HRM
+              <i class="fas fa-user-tie text-primary"></i> HRM
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="customes.php">
-              <i class="ni ni-single-02 text-primary"></i> Customers
+              <i class="fas fa-users text-primary"></i> Customers
             </a>
           </li>
           <li class="nav-item">
@@ -113,9 +112,29 @@
               <i class="ni ni-credit-card text-primary"></i> Payments
             </a>
           </li>
+        </ul>
+        <!-- Divider -->
+        <hr class="my-3">
+        <!-- Heading -->
+        <h6 class="navbar-heading text-muted">Reporting</h6>
+        <!-- Navigation -->
+        <ul class="navbar-nav mb-md-3">
+          <li class="nav-item">
+            <a class="nav-link" href="orders_reports.php">
+              <i class="fas fa-shopping-basket"></i> Orders
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="payments_reports.php">
+              <i class="fas fa-funnel-dollar"></i> Payments
+            </a>
+          </li>
+        </ul>
+        <hr class="my-3">
+        <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
             <a class="nav-link" href="logout.php">
-              <i class="ni ni-user-run text-danger"></i> Log Out
+              <i class="fas fa-sign-out-alt text-danger"></i> Log Out
             </a>
           </li>
         </ul>
@@ -123,4 +142,4 @@
     </div>
   </nav>
 
-<?php }?>
+<?php } ?>
