@@ -108,7 +108,7 @@ require_once('partials/_analytics.php');
                   <h3 class="mb-0">Recent Orders</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="orders.php" class="btn btn-sm btn-primary">See all</a>
+                  <a href="orders_reports.php" class="btn btn-sm btn-primary">See all</a>
                 </div>
               </div>
             </div>
@@ -168,7 +168,7 @@ require_once('partials/_analytics.php');
                   <h3 class="mb-0">Recent Payments</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="payments.php" class="btn btn-sm btn-primary">See all</a>
+                  <a href="payments_reports.php" class="btn btn-sm btn-primary">See all</a>
                 </div>
               </div>
             </div>
@@ -198,7 +198,7 @@ require_once('partials/_analytics.php');
                         <?php echo $payment->pay_amt; ?>
                       </td>
                       <td>
-                        <?php echo $payment->order_id; ?>
+                        <?php echo $payment->order_code; ?>
                       </td>
                     </tr>
                   <?php } ?>
