@@ -7,14 +7,14 @@
     if(isset($_GET['delete']))
     {
           $id=intval($_GET['delete']);
-          $adn="DELETE FROM  coffee_shop_staff  WHERE  staff_id = ?";
+          $adn="DELETE FROM  coffee_shop_customers  WHERE  customer_id = ?";
           $stmt= $mysqli->prepare($adn);
           $stmt->bind_param('i',$id);
           $stmt->execute();
           $stmt->close();	 
          if($stmt)
          {
-             $success = "Deleted" && header("refresh:1; url=hrm.php");
+             $success = "Deleted" && header("refresh:1; url=customes.php");
          }
          else
          {
@@ -48,40 +48,43 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <a href="add_staff.php" class="btn btn-outline-success"><i class="fas fa-user-plus"></i>Add New Staff</a>
+              <a href="add_customer.php" class="btn btn-outline-success">
+                  <i class="fas fa-user-plus"></i>
+                  Add New Customer
+                </a>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Staff Number</th>
-                    <th scope="col">Staff Name</th>
-                    <th scope="col">Staff Email</th>
-                    <th scope="col">Manage Staff</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Customer Phone Number</th>
+                    <th scope="col">Customer Email</th>
+                    <th scope="col">Manage Customer</th>
                   </tr>
                 </thead>
                 <tbody>
                     <?php
-                        $ret = "SELECT * FROM  coffee_shop_staff "; 
+                        $ret = "SELECT * FROM  coffee_shop_customers "; 
                         $stmt = $mysqli->prepare($ret) ;
                         $stmt->execute() ;
                         $res = $stmt->get_result();
-                        while($staff = $res->fetch_object())
+                        while($cust = $res->fetch_object())
                         {
                     ?>
                         <tr>
-                            <td><?php echo $staff->staff_number;?></td>    
-                            <td><?php echo $staff->staff_name;?></td>    
-                            <td><?php echo $staff->staff_email;?></td>   
+                            <td><?php echo $cust->customer_name;?></td>    
+                            <td><?php echo $cust->customer_phoneno;?></td>    
+                            <td><?php echo $cust->customer_email;?></td>   
                             <td>
-                                <a href="hrm.php?delete=<?php echo $staff->staff_id;?>">
+                                <a href="customes.php?delete=<?php echo $cust->customer_id;?>">
                                     <span class="badge badge-danger">
                                         <i class="fas fa-trash"></i>  
                                         Delete
                                     </span>
                                 </a>
 
-                                <a href="update_staff.php?update=<?php echo $staff->staff_id;?>">
+                                <a href="update_customer.php?update=<?php echo $cust->customer_id;?>">
                                     <span class="badge badge-success">
                                       <i class ="fas fa-user-edit"></i>    
                                       Update
