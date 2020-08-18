@@ -99,13 +99,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="add_product.php">
-              <i class="ni ni-tag text-primary"></i> Add Products
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="manage_products.php">
-              <i class="ni ni-settings text-primary"></i> Manage Products
+            <a class="nav-link" href="products.php">
+              <i class="ni ni-settings text-primary"></i>Products
             </a>
           </li>
           <li class="nav-item">
