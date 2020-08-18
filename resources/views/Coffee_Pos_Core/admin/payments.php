@@ -12,11 +12,11 @@ if (isset($_GET['cancel'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-      $success = "Deleted" && header("refresh:1; url=payments.php");
+        $success = "Deleted" && header("refresh:1; url=payments.php");
     } else {
-      $err = "Try Again Later";
+        $err = "Try Again Later";
     }
-  }
+}
 require_once('partials/_head.php');
 ?>
 
@@ -79,17 +79,17 @@ require_once('partials/_head.php');
                                             <td>Ksh <?php echo $total; ?></td>
                                             <td><?php echo date('d/M/Y g:i', strtotime($order->created_at)); ?></td>
                                             <td>
+                                                <a href="pay_order.php?pay=<?php echo $order->code_id; ?>">
+                                                    <span class="badge badge-success">
+                                                        <i class="fas fa-handshake"></i>
+                                                        Pay Order
+                                                    </span>
+                                                </a>
+
                                                 <a href="payments.php?cancel=<?php echo $order->order_id; ?>">
                                                     <span class="badge badge-danger">
                                                         <i class="fas fa-window-close"></i>
                                                         Cancel Order
-                                                    </span>
-                                                </a>
-
-                                                <a href="pay_order.php?pay=<?php echo $order->order_id; ?>">
-                                                    <span class="badge badge-success">
-                                                        <i class="fas fa-handshake"></i>
-                                                        Pay Order
                                                     </span>
                                                 </a>
                                             </td>

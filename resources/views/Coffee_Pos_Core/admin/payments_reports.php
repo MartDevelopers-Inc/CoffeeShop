@@ -3,7 +3,6 @@ session_start();
 include('config/config.php');
 include('config/checklogin.php');
 check_login();
-
 require_once('partials/_head.php');
 ?>
 
@@ -60,15 +59,15 @@ require_once('partials/_head.php');
                                             <th scope="row">
                                                 <?php echo $payment->pay_method; ?>
                                             </th>
-                                            <td class="text-success"> 
+                                            <td class="text-success">
                                                 <?php echo $payment->order_code; ?>
                                             </td>
                                             <td>
                                                 <?php echo $payment->pay_amt; ?>
                                             </td>
                                             <td class="text-success">
-                                                <?php echo date('d/M/Y g:i', strtotime($payment->created_at))?>
-                                            </td>                                            
+                                                <?php echo date('d/M/Y g:i', strtotime($payment->created_at)) ?>
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
