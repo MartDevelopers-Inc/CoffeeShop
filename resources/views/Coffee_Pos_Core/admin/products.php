@@ -3,7 +3,6 @@
     include('config/config.php');
     include('config/checklogin.php');
     check_login();
-    //Delete Staff
     if(isset($_GET['delete']))
     {
           $id=intval($_GET['delete']);
@@ -48,8 +47,8 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <a href="add_customer.php" class="btn btn-outline-success">
-                  <i class="fas fa-tag"></i>
+              <a href="add_product.php" class="btn btn-outline-success">
+                  <i class="fas fa-coffee"></i>
                   Add New Product
                 </a>
             </div>
@@ -78,11 +77,11 @@
                                 <?php
                                 if($prod->prod_img)
                                 {
-                                    echo "<img src='assets/img/products/$prod->prod_img' class='img-thumbnail'>";
+                                    echo "<img src='assets/img/products/$prod->prod_img' height='60' width='60 class='img-thumbnail'>";
                                 }
                                 else
                                 {
-                                    echo "<img src='assets/img/products/default.png' class='img-thumbnail'>";
+                                    echo "<img src='assets/img/products/default.png' height='60' width='60 class='img-thumbnail'>";
                                 }
 
                                 ?>

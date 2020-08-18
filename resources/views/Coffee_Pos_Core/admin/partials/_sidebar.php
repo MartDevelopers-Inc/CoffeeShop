@@ -100,7 +100,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="products.php">
-              <i class="ni ni-settings text-primary"></i>Products
+              <i class="ni ni-tag text-primary"></i>Products
             </a>
           </li>
           <li class="nav-item">
