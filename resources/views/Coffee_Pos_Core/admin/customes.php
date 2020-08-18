@@ -6,10 +6,10 @@
     //Delete Staff
     if(isset($_GET['delete']))
     {
-          $id=intval($_GET['delete']);
+          $id=$_GET['delete'];
           $adn="DELETE FROM  coffee_shop_customers  WHERE  customer_id = ?";
           $stmt= $mysqli->prepare($adn);
-          $stmt->bind_param('i',$id);
+          $stmt->bind_param('s',$id);
           $stmt->execute();
           $stmt->close();	 
          if($stmt)

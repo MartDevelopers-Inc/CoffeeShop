@@ -7,9 +7,9 @@
     if(isset($_GET['delete']))
     {
           $id=intval($_GET['delete']);
-          $adn="DELETE FROM  coffee_shop_customers  WHERE  customer_id = ?";
+          $adn="DELETE FROM  coffee_shop_products  WHERE  prod_id = ?";
           $stmt= $mysqli->prepare($adn);
-          $stmt->bind_param('i',$id);
+          $stmt->bind_param('s',$id);
           $stmt->execute();
           $stmt->close();	 
          if($stmt)
@@ -49,8 +49,8 @@
           <div class="card shadow">
             <div class="card-header border-0">
               <a href="add_customer.php" class="btn btn-outline-success">
-                  <i class="fas fa-user-plus"></i>
-                  Add New Customer
+                  <i class="fas fa-tag"></i>
+                  Add New Product
                 </a>
             </div>
             <div class="table-responsive">
