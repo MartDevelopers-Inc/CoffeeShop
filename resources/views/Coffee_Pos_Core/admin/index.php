@@ -1,29 +1,26 @@
 <?php
-     session_start();
-     include('config/config.php');
-     //login 
-     if(isset($_POST['login']))
-     {
-        $admin_email = $_POST['admin_email'];
-        $admin_password = sha1(md5($_POST['admin_password']));//double encrypt to increase security
-        $stmt=$mysqli->prepare("SELECT admin_email, admin_password, admin_id  FROM   coffee_shop_admin WHERE (admin_email =? AND admin_password =?)");//sql to log in user
-        $stmt->bind_param('ss',  $admin_email, $admin_password);//bind fetched parameters
-        $stmt->execute();//execute bind 
-        $stmt -> bind_result($admin_email, $admin_password, $admin_id);//bind result
-        $rs=$stmt->fetch();
-        $_SESSION['admin_id'] = $admin_id;
-        if($rs)
-        {
-          //if its sucessfull
-          header("location:dashboard.php");
-        }
-        else
-        {
-          $err = "Incorrect Authentication Credentials ";
-        }
-     }
-    require_once('partials/_head.php');
+session_start();
+include('config/config.php');
+//login 
+if (isset($_POST['login'])) {
+  $admin_email = $_POST['admin_email'];
+  $admin_password = sha1(md5($_POST['admin_password'])); //double encrypt to increase security
+  $stmt = $mysqli->prepare("SELECT admin_email, admin_password, admin_id  FROM   coffee_shop_admin WHERE (admin_email =? AND admin_password =?)"); //sql to log in user
+  $stmt->bind_param('ss',  $admin_email, $admin_password); //bind fetched parameters
+  $stmt->execute(); //execute bind 
+  $stmt->bind_result($admin_email, $admin_password, $admin_id); //bind result
+  $rs = $stmt->fetch();
+  $_SESSION['admin_id'] = $admin_id;
+  if ($rs) {
+    //if its sucessfull
+    header("location:dashboard.php");
+  } else {
+    $err = "Incorrect Authentication Credentials ";
+  }
+}
+require_once('partials/_head.php');
 ?>
+
 <body style="background-image: url(assets/img/theme/auth-bg.jpg); background-size: cover;" class="bg-default">
   <div class="main-content">
     <div class="header bg-gradient-primar py-7 py-lg-8">
@@ -84,11 +81,11 @@
   </div>
   <!-- Footer -->
   <?php
-    require_once('partials/_footer.php');
+  require_once('partials/_footer.php');
   ?>
   <!-- Argon Scripts -->
   <?php
-    require_once('partials/_scripts.php');
+  require_once('partials/_scripts.php');
   ?>
 </body>
 
