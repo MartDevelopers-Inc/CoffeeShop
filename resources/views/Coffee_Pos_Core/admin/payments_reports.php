@@ -3,20 +3,7 @@ session_start();
 include('config/config.php');
 include('config/checklogin.php');
 check_login();
-//Cancel Order
-if (isset($_GET['cancel'])) {
-    $id = $_GET['cancel'];
-    $adn = "DELETE FROM  coffee_shop_orders  WHERE  order_id = ?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $id);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=payments.php");
-    } else {
-        $err = "Try Again Later";
-    }
-}
+
 require_once('partials/_head.php');
 ?>
 
@@ -51,39 +38,37 @@ require_once('partials/_head.php');
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th class="text-success" scope="col">Code</th>
-                                        <th scope="col">Customer</th>
-                                        <th class="text-success" scope="col">Product</th>
-                                        <th scope="col">Unit Price</th>
-                                        <th class="text-success" scope="col">Quantity</th>
-                                        <th scope="col">Total Price</th>
-                                        <th scop="col">Status</th>
-                                        <th scope="col">Date</th>
+                                        <th class="text-success" scope="col">Payment Code</th>
+                                        <th scope="col">Payment Method</th>
+                                        <th class="text-success" scope="col">Order Code</th>
+                                        <th scope="col">Amount Paid</th>
+                                        <th class="text-success" scope="col">Date Paid</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $ret = "SELECT * FROM  coffee_shop_orders ";
+                                    $ret = "SELECT * FROM  coffee_shop_payments ";
                                     $stmt = $mysqli->prepare($ret);
                                     $stmt->execute();
                                     $res = $stmt->get_result();
-                                    while ($order = $res->fetch_object()) {
-                                        $total = ($order->prod_price * $order->prod_qty);
-
+                                    while ($payment = $res->fetch_object()) {
                                     ?>
                                         <tr>
-                                            <th class="text-success" scope="row"><?php echo $order->order_code; ?></th>
-                                            <td><?php echo $order->customer_name; ?></td>
-                                            <td class="text-success"><?php echo $order->prod_name; ?></td>
-                                            <td>Ksh <?php echo $order->prod_price; ?></td>
-                                            <td class="text-success"><?php echo $order->prod_qty; ?></td>
-                                            <td>Ksh <?php echo $total; ?></td>
-                                            <td><?php if ($order->order_status == '') {
-                                                    echo "<span class='badge badge-danger'>Not Paid</span>";
-                                                } else {
-                                                    echo "<span class='badge badge-success'>$order->order_status</span>";
-                                                } ?></td>
-                                            <td><?php echo date('d/M/Y g:i', strtotime($order->created_at)); ?></td>
+                                            <th class="text-success" scope="row">
+                                                <?php echo $payment->pay_code; ?>
+                                            </th>
+                                            <th scope="row">
+                                                <?php echo $payment->pay_method; ?>
+                                            </th>
+                                            <td class="text-success"> 
+                                                <?php echo $payment->order_code; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $payment->pay_amt; ?>
+                                            </td>
+                                            <td class="text-success">
+                                                <?php echo date('d/M/Y g:i', strtotime($payment->created_at))?>
+                                            </td>                                            
                                         </tr>
                                     <?php } ?>
                                 </tbody>

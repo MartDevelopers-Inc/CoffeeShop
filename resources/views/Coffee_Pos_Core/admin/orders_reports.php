@@ -3,20 +3,6 @@ session_start();
 include('config/config.php');
 include('config/checklogin.php');
 check_login();
-//Cancel Order
-if (isset($_GET['cancel'])) {
-    $id = $_GET['cancel'];
-    $adn = "DELETE FROM  coffee_shop_orders  WHERE  order_id = ?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $id);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=payments.php");
-    } else {
-        $err = "Try Again Later";
-    }
-}
 require_once('partials/_head.php');
 ?>
 
