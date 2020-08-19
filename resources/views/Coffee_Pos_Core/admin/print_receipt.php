@@ -45,7 +45,7 @@ while ($order = $res->fetch_object()) {
     <body>
         <div class="container">
             <div class="row">
-                <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+                <div id="Receipt" class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <address>
@@ -55,7 +55,7 @@ while ($order = $res->fetch_object()) {
                                 <br>
                                 Nairobi, Kenya
                                 <br>
-                                <abbr title="Phone">P:</abbr> (+254) 7123 567 90
+                                 (+254) 7123 567 90
                             </address>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 text-right">
@@ -124,12 +124,22 @@ while ($order = $res->fetch_object()) {
                     </div>
                 </div>
                 <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
-                    <button type="button" class="btn btn-success btn-lg text-justify btn-block">
+                    <button id="print" onclick="printContent('Receipt');" class="btn btn-success btn-lg text-justify btn-block">
                         Print <span class="fas fa-print"></span>
                     </button>
                 </div>
             </div>
         </div>
     </body>
+
 </html>
+<script>
+    function printContent(el) {
+        var restorepage = $('body').html();
+        var printcontent = $('#' + el).clone();
+        $('body').empty().html(printcontent);
+        window.print();
+        $('body').html(restorepage);
+    }
+</script>
 <?php } ?>
