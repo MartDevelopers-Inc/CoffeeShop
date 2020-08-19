@@ -1,98 +1,135 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-<style>
-    body {
-    margin-top: 20px;
-}
+<?php
+session_start();
+include('config/config.php');
+include('config/checklogin.php');
+check_login();
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+    <meta name="author" content="MartDevelopers Inc">
+    <title>iCoffee Shop Point Of Sale </title>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/icons/site.webmanifest">
+    <link rel="mask-icon" href="assets/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link href="assets/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <style>
+        body {
+            margin-top: 20px;
+        }
+    </style>
+</head>
 </style>
-<div class="container">
-    <div class="row">
-        <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+<?php
+$order_code = $_GET['order_code'];
+$ret = "SELECT * FROM  coffee_shop_orders WHERE order_code = '$order_code'";
+$stmt = $mysqli->prepare($ret);
+$stmt->execute();
+$res = $stmt->get_result();
+while ($order = $res->fetch_object()) {
+    $total = ($order->prod_price * $order->prod_qty);
+
+?>
+
+    <body>
+        <div class="container">
             <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <address>
-                        <strong>Elf Cafe</strong>
-                        <br>
-                        2135 Sunset Blvd
-                        <br>
-                        Los Angeles, CA 90026
-                        <br>
-                        <abbr title="Phone">P:</abbr> (213) 484-6829
-                    </address>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-                    <p>
-                        <em>Date: 1st November, 2013</em>
-                    </p>
-                    <p>
-                        <em>Receipt #: 34522677W</em>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="text-center">
-                    <h1>Receipt</h1>
-                </div>
-                </span>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>#</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="col-md-9"><em>Baked Rodopa Sheep Feta</em></h4></td>
-                            <td class="col-md-1" style="text-align: center"> 2 </td>
-                            <td class="col-md-1 text-center">$13</td>
-                            <td class="col-md-1 text-center">$26</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-9"><em>Lebanese Cabbage Salad</em></h4></td>
-                            <td class="col-md-1" style="text-align: center"> 1 </td>
-                            <td class="col-md-1 text-center">$8</td>
-                            <td class="col-md-1 text-center">$8</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-9"><em>Baked Tart with Thyme and Garlic</em></h4></td>
-                            <td class="col-md-1" style="text-align: center"> 3 </td>
-                            <td class="col-md-1 text-center">$16</td>
-                            <td class="col-md-1 text-center">$48</td>
-                        </tr>
-                        <tr>
-                            <td>   </td>
-                            <td>   </td>
-                            <td class="text-right">
+                <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <address>
+                                <strong>iCoffee Lounge</strong>
+                                <br>
+                                127-0-0-1
+                                <br>
+                                Nairobi, Kenya
+                                <br>
+                                <abbr title="Phone">P:</abbr> (+254) 7123 567 90
+                            </address>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                             <p>
-                                <strong>Subtotal: </strong>
+                                <em>Date: <?php echo date('d/M/Y g:i'); ?></em>
                             </p>
                             <p>
-                                <strong>Tax: </strong>
-                            </p></td>
-                            <td class="text-center">
-                            <p>
-                                <strong>$6.94</strong>
+                                <em class="text-success">Receipt #: <?php echo $order->order_code; ?></em>
                             </p>
-                            <p>
-                                <strong>$6.94</strong>
-                            </p></td>
-                        </tr>
-                        <tr>
-                            <td>   </td>
-                            <td>   </td>
-                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                            <td class="text-center text-danger"><h4><strong>$31.53</strong></h4></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button type="button" class="btn btn-success btn-lg btn-block">
-                    Pay Now   <span class="glyphicon glyphicon-chevron-right"></span>
-                </button></td>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center">
+                            <h1>Receipt</h1>
+                        </div>
+                        </span>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>#</th>
+                                    <th class="text-center">Unit Price</th>
+                                    <th class="text-center">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-md-9"><em> <?php echo $order->prod_name; ?> </em></h4>
+                                    </td>
+                                    <td class="col-md-1" style="text-align: center"> <?php echo $order->prod_qty; ?></td>
+                                    <td class="col-md-1 text-center">Ksh <?php echo $order->prod_price; ?></td>
+                                    <td class="col-md-1 text-center">Ksh <?php echo $total; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td class="text-right">
+                                        <p>
+                                            <strong>Subtotal: </strong>
+                                        </p>
+                                        <p>
+                                            <strong>Tax: </strong>
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p>
+                                            <strong>Ksh <?php echo $total; ?></strong>
+                                        </p>
+                                        <p>
+                                            <strong>14%</strong>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td class="text-right">
+                                        <h4><strong>Total: </strong></h4>
+                                    </td>
+                                    <td class="text-center text-danger">
+                                        <h4><strong>Ksh <?php echo $total; ?></strong></h4>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+                    <button type="button" class="btn btn-success btn-lg text-justify btn-block">
+                        Print <span class="fas fa-print"></span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    </body>
+</html>
+<?php } ?>
