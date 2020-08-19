@@ -1,11 +1,11 @@
 <?php
-$admin_id = $_SESSION['admin_id'];
+$staff_id = $_SESSION['staff_id'];
 //$login_id = $_SESSION['login_id'];
-$ret = "SELECT * FROM  coffee_shop_admin  WHERE admin_id = '$admin_id'";
+$ret = "SELECT * FROM  coffee_shop_staff  WHERE staff_id = '$staff_id'";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute();
 $res = $stmt->get_result();
-while ($admin = $res->fetch_object()) {
+while ($staff_id = $res->fetch_object()) {
 
 ?>
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
@@ -16,7 +16,7 @@ while ($admin = $res->fetch_object()) {
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="dashboard.php">
-        <img src="assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+        <img src="../admin/assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -31,7 +31,7 @@ while ($admin = $res->fetch_object()) {
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="assets/img/theme/team-1-800x800.jpg">
+                <img alt="Image placeholder" src="../assets/img/">
               </span>
             </div>
           </a>
@@ -58,7 +58,7 @@ while ($admin = $res->fetch_object()) {
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="dashboard.php">
-                <img src="assets/img/brand/blue.png">
+                <img src="../admin/assets/img/brand/blue.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -85,11 +85,6 @@ while ($admin = $res->fetch_object()) {
           <li class="nav-item">
             <a class="nav-link" href="dashboard.php">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="hrm.php">
-              <i class="fas fa-user-tie text-primary"></i> HRM
             </a>
           </li>
           <li class="nav-item">

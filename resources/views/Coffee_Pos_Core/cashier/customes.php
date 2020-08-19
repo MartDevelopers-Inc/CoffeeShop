@@ -3,6 +3,20 @@ session_start();
 include('config/config.php');
 include('config/checklogin.php');
 check_login();
+//Delete Staff
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $adn = "DELETE FROM  coffee_shop_customers  WHERE  customer_id = ?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=customes.php");
+    } else {
+        $err = "Try Again Later";
+    }
+}
 require_once('partials/_head.php');
 ?>
 
@@ -18,7 +32,7 @@ require_once('partials/_head.php');
         require_once('partials/_topnav.php');
         ?>
         <!-- Header -->
-        <div style="background-image: url(assets/img/theme/profile-cover.jpg); background-size: cover;" class="header  pb-8 pt-5 pt-md-8">
+        <div style="background-image: url(../admin/assets/img/theme/profile-cover.jpg); background-size: cover;" class="header  pb-8 pt-5 pt-md-8">
             <div class="container-fluid">
                 <div class="header-body">
                 </div>
@@ -31,42 +45,40 @@ require_once('partials/_head.php');
                 <div class="col">
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            Payment Reports
+                            <a href="add_customer.php" class="btn btn-outline-success">
+                                <i class="fas fa-user-plus"></i>
+                                Add New Customer
+                            </a>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th class="text-success" scope="col">Payment Code</th>
-                                        <th scope="col">Payment Method</th>
-                                        <th class="text-success" scope="col">Order Code</th>
-                                        <th scope="col">Amount Paid</th>
-                                        <th class="text-success" scope="col">Date Paid</th>
+                                        <th scope="col">Customer Name</th>
+                                        <th scope="col">Customer Phone Number</th>
+                                        <th scope="col">Customer Email</th>
+                                        <th scope="col">Manage Customer</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $ret = "SELECT * FROM  coffee_shop_payments ORDER BY `created_at` DESC ";
+                                    $ret = "SELECT * FROM  coffee_shop_customers  ORDER BY `coffee_shop_customers`.`created_at` DESC ";
                                     $stmt = $mysqli->prepare($ret);
                                     $stmt->execute();
                                     $res = $stmt->get_result();
-                                    while ($payment = $res->fetch_object()) {
+                                    while ($cust = $res->fetch_object()) {
                                     ?>
                                         <tr>
-                                            <th class="text-success" scope="row">
-                                                <?php echo $payment->pay_code; ?>
-                                            </th>
-                                            <th scope="row">
-                                                <?php echo $payment->pay_method; ?>
-                                            </th>
-                                            <td class="text-success">
-                                                <?php echo $payment->order_code; ?>
-                                            </td>
+                                            <td><?php echo $cust->customer_name; ?></td>
+                                            <td><?php echo $cust->customer_phoneno; ?></td>
+                                            <td><?php echo $cust->customer_email; ?></td>
                                             <td>
-                                                Ksh <?php echo $payment->pay_amt; ?>
-                                            </td>
-                                            <td class="text-success">
-                                                <?php echo date('d/M/Y g:i', strtotime($payment->created_at)) ?>
+                                                <a href="update_customer.php?update=<?php echo $cust->customer_id; ?>">
+                                                    <span class="badge badge-success">
+                                                        <i class="fas fa-user-edit"></i>
+                                                        Update
+                                                    </span>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php } ?>
