@@ -14,7 +14,7 @@ if (isset($_POST['addStaff'])) {
     $staff_number = $_POST['staff_number'];
     $staff_name = $_POST['staff_name'];
     $staff_email = $_POST['staff_email'];
-    $staff_password = $_POST['staff_password'];
+    $staff_password = sha1(md5($_POST['staff_password']));
 
     //Insert Captured information to a database table
     $postQuery = "INSERT INTO coffee_shop_staff (staff_number, staff_name, staff_email, staff_password) VALUES(?,?,?,?)";

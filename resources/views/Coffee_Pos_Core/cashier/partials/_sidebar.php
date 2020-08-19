@@ -1,11 +1,11 @@
 <?php
-$admin_id = $_SESSION['admin_id'];
+$staff_id = $_SESSION['staff_id'];
 //$login_id = $_SESSION['login_id'];
-$ret = "SELECT * FROM  coffee_shop_admin  WHERE admin_id = '$admin_id'";
+$ret = "SELECT * FROM  coffee_shop_staff  WHERE staff_id = '$staff_id'";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute();
 $res = $stmt->get_result();
-while ($admin = $res->fetch_object()) {
+while ($staff_id = $res->fetch_object()) {
 
 ?>
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
