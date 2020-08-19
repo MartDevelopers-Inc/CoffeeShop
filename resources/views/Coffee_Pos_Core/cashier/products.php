@@ -3,16 +3,15 @@ session_start();
 include('config/config.php');
 include('config/checklogin.php');
 check_login();
-//Delete Staff
 if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    $adn = "DELETE FROM  coffee_shop_customers  WHERE  customer_id = ?";
+    $id = intval($_GET['delete']);
+    $adn = "DELETE FROM  coffee_shop_products  WHERE  prod_id = ?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $id);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=customes.php");
+        $success = "Deleted" && header("refresh:1; url=products.php");
     } else {
         $err = "Try Again Later";
     }
@@ -45,37 +44,48 @@ require_once('partials/_head.php');
                 <div class="col">
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <a href="add_customer.php" class="btn btn-outline-success">
-                                <i class="fas fa-user-plus"></i>
-                                Add New Customer
+                            <a href="add_product.php" class="btn btn-outline-success">
+                                <i class="fas fa-coffee"></i>
+                                Add New Product
                             </a>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">Customer Name</th>
-                                        <th scope="col">Customer Phone Number</th>
-                                        <th scope="col">Customer Email</th>
-                                        <th scope="col">Manage Customer</th>
+                                        <th scope="col">Product Image</th>
+                                        <th scope="col">Product Code</th>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Product Price</th>
+                                        <th scope="col">Manage Product</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $ret = "SELECT * FROM  coffee_shop_customers  ORDER BY `coffee_shop_customers`.`created_at` DESC ";
+                                    $ret = "SELECT * FROM  coffee_shop_products  ORDER BY `coffee_shop_products`.`created_at` DESC ";
                                     $stmt = $mysqli->prepare($ret);
                                     $stmt->execute();
                                     $res = $stmt->get_result();
-                                    while ($cust = $res->fetch_object()) {
+                                    while ($prod = $res->fetch_object()) {
                                     ?>
                                         <tr>
-                                            <td><?php echo $cust->customer_name; ?></td>
-                                            <td><?php echo $cust->customer_phoneno; ?></td>
-                                            <td><?php echo $cust->customer_email; ?></td>
                                             <td>
-                                                <a href="update_customer.php?update=<?php echo $cust->customer_id; ?>">
+                                                <?php
+                                                if ($prod->prod_img) {
+                                                    echo "<img src='../admin/assets/img/products/$prod->prod_img' height='60' width='60 class='img-thumbnail'>";
+                                                } else {
+                                                    echo "<img src='../admin/assets/img/products/default.png' height='60' width='60 class='img-thumbnail'>";
+                                                }
+
+                                                ?>
+                                            </td>
+                                            <td><?php echo $prod->prod_code; ?></td>
+                                            <td><?php echo $prod->prod_name; ?></td>
+                                            <td>Ksh <?php echo $prod->prod_price; ?></td>
+                                            <td>
+                                                <a href="update_product.php?update=<?php echo $prod->prod_id; ?>">
                                                     <span class="badge badge-success">
-                                                        <i class="fas fa-user-edit"></i>
+                                                        <i class="fas fa-edit"></i>
                                                         Update
                                                     </span>
                                                 </a>

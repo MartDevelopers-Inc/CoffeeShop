@@ -5,27 +5,28 @@ include('config/checklogin.php');
 include('config/code-generator.php');
 
 check_login();
-//Add Customer
-if (isset($_POST['updateCustomer'])) {
+if (isset($_POST['UpdateProduct'])) {
   //Prevent Posting Blank Values
-  if (empty($_POST["customer_phoneno"]) || empty($_POST["customer_name"]) || empty($_POST['customer_email']) || empty($_POST['customer_password'])) {
+  if (empty($_POST["prod_code"]) || empty($_POST["prod_name"]) || empty($_POST['prod_desc']) || empty($_POST['prod_price'])) {
     $err = "Blank Values Not Accepted";
   } else {
-    $customer_name = $_POST['customer_name'];
-    $customer_phoneno = $_POST['customer_phoneno'];
-    $customer_email = $_POST['customer_email'];
-    $customer_password = sha1(md5($_POST['customer_password'])); //Hash This 
     $update = $_GET['update'];
+    $prod_code  = $_POST['prod_code'];
+    $prod_name = $_POST['prod_name'];
+    $prod_img = $_FILES['prod_img']['name'];
+    move_uploaded_file($_FILES["prod_img"]["tmp_name"], "../admin/assets/img/products/" . $_FILES["prod_img"]["name"]);
+    $prod_desc = $_POST['prod_desc'];
+    $prod_price = $_POST['prod_price'];
 
     //Insert Captured information to a database table
-    $postQuery = "UPDATE coffee_shop_customers SET customer_name =?, customer_phoneno =?, customer_email =?, customer_password =? WHERE  customer_id =?";
+    $postQuery = "UPDATE coffee_shop_products SET prod_code =?, prod_name =?, prod_img =?, prod_desc =?, prod_price =? WHERE prod_id = ?";
     $postStmt = $mysqli->prepare($postQuery);
     //bind paramaters
-    $rc = $postStmt->bind_param('sssss', $customer_name, $customer_phoneno, $customer_email, $customer_password, $update);
+    $rc = $postStmt->bind_param('ssssss', $prod_code, $prod_name, $prod_img, $prod_desc, $prod_price, $update);
     $postStmt->execute();
     //declare a varible which will be passed to alert function
     if ($postStmt) {
-      $success = "Customer Added" && header("refresh:1; url=customes.php");
+      $success = "Product Updated" && header("refresh:1; url=products.php");
     } else {
       $err = "Please Try Again Or Try Later";
     }
@@ -45,11 +46,11 @@ require_once('partials/_head.php');
     <?php
     require_once('partials/_topnav.php');
     $update = $_GET['update'];
-    $ret = "SELECT * FROM  coffee_shop_customers WHERE customer_id = '$update' ";
+    $ret = "SELECT * FROM  coffee_shop_products WHERE prod_id = '$update' ";
     $stmt = $mysqli->prepare($ret);
     $stmt->execute();
     $res = $stmt->get_result();
-    while ($cust = $res->fetch_object()) {
+    while ($prod = $res->fetch_object()) {
     ?>
       <!-- Header -->
       <div style="background-image: url(../admin/assets/img/theme/profile-cover.jpg); background-size: cover;" class="header  pb-8 pt-5 pt-md-8">
@@ -68,32 +69,39 @@ require_once('partials/_head.php');
                 <h3>Please Fill All Fields</h3>
               </div>
               <div class="card-body">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                   <div class="form-row">
                     <div class="col-md-6">
-                      <label>Customer Name</label>
-                      <input type="text" name="customer_name" value="<?php echo $cust->customer_name; ?>" class="form-control">
+                      <label>Product Name</label>
+                      <input type="text" value="<?php echo $prod->prod_name; ?>" name="prod_name" class="form-control">
                     </div>
                     <div class="col-md-6">
-                      <label>Customer Phone Number</label>
-                      <input type="text" name="customer_phoneno" value="<?php echo $cust->customer_phoneno; ?>" class="form-control" value="">
+                      <label>Product Code</label>
+                      <input type="text" name="prod_code" value="<?php echo $prod->prod_code; ?>" class="form-control" value="">
                     </div>
                   </div>
                   <hr>
                   <div class="form-row">
                     <div class="col-md-6">
-                      <label>Customer Email</label>
-                      <input type="email" name="customer_email" value="<?php echo $cust->customer_email; ?>" class="form-control" value="">
+                      <label>Product Image</label>
+                      <input type="file" name="prod_img" class="btn btn-outline-success form-control" value="<?php echo $prod_img; ?>">
                     </div>
                     <div class="col-md-6">
-                      <label>Customer Password</label>
-                      <input type="password" name="customer_password" class="form-control" value="">
+                      <label>Product Price</label>
+                      <input type="text" name="prod_price" class="form-control" value="<?php echo $prod->prod_price; ?>">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <label>Product Description</label>
+                      <textarea rows="5" name="prod_desc" class="form-control" value=""><?php echo $prod->prod_desc; ?></textarea>
                     </div>
                   </div>
                   <br>
                   <div class="form-row">
                     <div class="col-md-6">
-                      <input type="submit" name="updateCustomer" value="Update Customer" class="btn btn-outline-success" value="">
+                      <input type="submit" name="UpdateProduct" value="Update Product" class="btn btn-outline-success" value="">
                     </div>
                   </div>
                 </form>

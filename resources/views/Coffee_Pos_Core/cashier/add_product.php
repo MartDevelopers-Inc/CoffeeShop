@@ -5,27 +5,28 @@ include('config/checklogin.php');
 include('config/code-generator.php');
 
 check_login();
-//Add Customer
-if (isset($_POST['addCustomer'])) {
+if (isset($_POST['addProduct'])) {
   //Prevent Posting Blank Values
-  if (empty($_POST["customer_phoneno"]) || empty($_POST["customer_name"]) || empty($_POST['customer_email']) || empty($_POST['customer_password'])) {
+  if (empty($_POST["prod_code"]) || empty($_POST["prod_name"]) || empty($_POST['prod_desc']) || empty($_POST['prod_price'])) {
     $err = "Blank Values Not Accepted";
   } else {
-    $customer_name = $_POST['customer_name'];
-    $customer_phoneno = $_POST['customer_phoneno'];
-    $customer_email = $_POST['customer_email'];
-    $customer_password = sha1(md5($_POST['customer_password'])); //Hash This 
-    $customer_id = $_POST['customer_id'];
+    $prod_id = $_POST['prod_id'];
+    $prod_code  = $_POST['prod_code'];
+    $prod_name = $_POST['prod_name'];
+    $prod_img = $_FILES['prod_img']['name'];
+    move_uploaded_file($_FILES["prod_img"]["tmp_name"], "../admin/assets/img/products/" . $_FILES["prod_img"]["name"]);
+    $prod_desc = $_POST['prod_desc'];
+    $prod_price = $_POST['prod_price'];
 
     //Insert Captured information to a database table
-    $postQuery = "INSERT INTO coffee_shop_customers (customer_id, customer_name, customer_phoneno, customer_email, customer_password) VALUES(?,?,?,?,?)";
+    $postQuery = "INSERT INTO coffee_shop_products (prod_id, prod_code, prod_name, prod_img, prod_desc, prod_price ) VALUES(?,?,?,?,?,?)";
     $postStmt = $mysqli->prepare($postQuery);
     //bind paramaters
-    $rc = $postStmt->bind_param('sssss', $customer_id, $customer_name, $customer_phoneno, $customer_email, $customer_password);
+    $rc = $postStmt->bind_param('ssssss', $prod_id, $prod_code, $prod_name, $prod_img, $prod_desc, $prod_price);
     $postStmt->execute();
     //declare a varible which will be passed to alert function
     if ($postStmt) {
-      $success = "Customer Added" && header("refresh:1; url=customes.php");
+      $success = "Product Added" && header("refresh:1; url=add_product.php");
     } else {
       $err = "Please Try Again Or Try Later";
     }
@@ -62,33 +63,40 @@ require_once('partials/_head.php');
               <h3>Please Fill All Fields</h3>
             </div>
             <div class="card-body">
-              <form method="POST">
+              <form method="POST" enctype="multipart/form-data">
                 <div class="form-row">
                   <div class="col-md-6">
-                    <label>Customer Name</label>
-                    <input type="text" name="customer_name" class="form-control">
-                    <input type="hidden" name="customer_id" value="<?php echo $cus_id; ?>" class="form-control">
+                    <label>Product Name</label>
+                    <input type="text" name="prod_name" class="form-control">
+                    <input type="hidden" name="prod_id" value="<?php echo $prod_id; ?>" class="form-control">
                   </div>
                   <div class="col-md-6">
-                    <label>Customer Phone Number</label>
-                    <input type="text" name="customer_phoneno" class="form-control" value="">
+                    <label>Product Code</label>
+                    <input type="text" name="prod_code" value="<?php echo $alpha; ?>-<?php echo $beta; ?>" class="form-control" value="">
                   </div>
                 </div>
                 <hr>
                 <div class="form-row">
                   <div class="col-md-6">
-                    <label>Customer Email</label>
-                    <input type="email" name="customer_email" class="form-control" value="">
+                    <label>Product Image</label>
+                    <input type="file" name="prod_img" class="btn btn-outline-success form-control" value="">
                   </div>
                   <div class="col-md-6">
-                    <label>Customer Password</label>
-                    <input type="password" name="customer_password" class="form-control" value="">
+                    <label>Product Price</label>
+                    <input type="text" name="prod_price" class="form-control" value="">
+                  </div>
+                </div>
+                <hr>
+                <div class="form-row">
+                  <div class="col-md-12">
+                    <label>Product Description</label>
+                    <textarea rows="5" name="prod_desc" class="form-control" value=""></textarea>
                   </div>
                 </div>
                 <br>
                 <div class="form-row">
                   <div class="col-md-6">
-                    <input type="submit" name="addCustomer" value="Add Customer" class="btn btn-outline-success" value="">
+                    <input type="submit" name="addProduct" value="Add Product" class="btn btn-outline-success" value="">
                   </div>
                 </div>
               </form>
