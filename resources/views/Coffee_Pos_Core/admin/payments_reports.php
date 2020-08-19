@@ -46,7 +46,7 @@ require_once('partials/_head.php');
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $ret = "SELECT * FROM  coffee_shop_payments ";
+                                    $ret = "SELECT * FROM  coffee_shop_payments ORDER BY `created_at` DESC ";
                                     $stmt = $mysqli->prepare($ret);
                                     $stmt->execute();
                                     $res = $stmt->get_result();
@@ -63,7 +63,7 @@ require_once('partials/_head.php');
                                                 <?php echo $payment->order_code; ?>
                                             </td>
                                             <td>
-                                                <?php echo $payment->pay_amt; ?>
+                                                Ksh <?php echo $payment->pay_amt; ?>
                                             </td>
                                             <td class="text-success">
                                                 <?php echo date('d/M/Y g:i', strtotime($payment->created_at)) ?>
