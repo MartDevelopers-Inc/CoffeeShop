@@ -20,4 +20,10 @@
     $cus_id = bin2hex(random_bytes('6'));
     $prod_id  = bin2hex(random_bytes('5'));
     $orderid = bin2hex(random_bytes('5'));
+    $payid = bin2hex(random_bytes('3'));
+
+
+    $length = 10;
+    $mpesaCode = substr(str_shuffle("Q1W2E3R4T5Y6U7I8O9PLKJHGFDSAZXCVBNM"),1,$length);
+    
 ?>

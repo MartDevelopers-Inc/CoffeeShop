@@ -108,7 +108,7 @@ require_once('partials/_analytics.php');
                   <h3 class="mb-0">Recent Orders</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="orders.php" class="btn btn-sm btn-primary">See all</a>
+                  <a href="orders_reports.php" class="btn btn-sm btn-primary">See all</a>
                 </div>
               </div>
             </div>
@@ -117,19 +117,19 @@ require_once('partials/_analytics.php');
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Code</th>
+                    <th class="text-success" scope="col">Code</th>
                     <th scope="col">Customer</th>
-                    <th scope="col">Product</th>
+                    <th class="text-success" scope="col">Product</th>
                     <th scope="col">Unit Price</th>
-                    <th scope="col">Quantity</th>
+                    <th class="text-success" scope="col">Quantity</th>
                     <th scope="col">Total Price</th>
                     <th scop="col">Status</th>
-                    <th scope="col">Date</th>
+                    <th class="text-success" scope="col">Date</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  $ret = "SELECT * FROM  coffee_shop_orders ";
+                  $ret = "SELECT * FROM  coffee_shop_orders ORDER BY `coffee_shop_orders`.`created_at` ASC LIMIT 10 ";
                   $stmt = $mysqli->prepare($ret);
                   $stmt->execute();
                   $res = $stmt->get_result();
@@ -138,18 +138,18 @@ require_once('partials/_analytics.php');
 
                   ?>
                     <tr>
-                      <th scope="row"><?php echo $order->order_code; ?></th>
+                      <th class="text-success" scope="row"><?php echo $order->order_code; ?></th>
                       <td><?php echo $order->customer_name; ?></td>
-                      <td><?php echo $order->prod_name; ?></td>
+                      <td class="text-success"><?php echo $order->prod_name; ?></td>
                       <td>Ksh <?php echo $order->prod_price; ?></td>
-                      <td><?php echo $order->prod_qty; ?></td>
+                      <td class="text-success"><?php echo $order->prod_qty; ?></td>
                       <td>Ksh <?php echo $total; ?></td>
                       <td><?php if ($order->order_status == '') {
                             echo "<span class='badge badge-danger'>Not Paid</span>";
                           } else {
                             echo "<span class='badge badge-success'>$order->order_status</span>";
                           } ?></td>
-                      <td><?php echo date('d/M/Y g:i', strtotime($order->created_at)); ?></td>
+                      <td class="text-success"><?php echo date('d/M/Y g:i', strtotime($order->created_at)); ?></td>
                     </tr>
                   <?php } ?>
                 </tbody>
@@ -168,7 +168,7 @@ require_once('partials/_analytics.php');
                   <h3 class="mb-0">Recent Payments</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="payments.php" class="btn btn-sm btn-primary">See all</a>
+                  <a href="payments_reports.php" class="btn btn-sm btn-primary">See all</a>
                 </div>
               </div>
             </div>
@@ -177,28 +177,28 @@ require_once('partials/_analytics.php');
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Code</th>
+                    <th class="text-success" scope="col">Code</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">Order Code</th>
+                    <th class='text-success' scope="col">Order Code</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  $ret = "SELECT * FROM  coffee_shop_payments ";
+                  $ret = "SELECT * FROM   coffee_shop_payments   ORDER BY `coffee_shop_payments`.`created_at` DESC LIMIT 10 ";
                   $stmt = $mysqli->prepare($ret);
                   $stmt->execute();
                   $res = $stmt->get_result();
                   while ($payment = $res->fetch_object()) {
                   ?>
                     <tr>
-                      <th scope="row">
+                      <th class="text-success" scope="row">
                         <?php echo $payment->pay_code; ?>
                       </th>
                       <td>
-                        <?php echo $payment->pay_amt; ?>
+                        Ksh <?php echo $payment->pay_amt; ?>
                       </td>
-                      <td>
-                        <?php echo $payment->order_id; ?>
+                      <td class='text-success'>
+                        <?php echo $payment->order_code; ?>
                       </td>
                     </tr>
                   <?php } ?>
