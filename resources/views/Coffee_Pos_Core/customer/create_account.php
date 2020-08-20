@@ -2,23 +2,33 @@
 session_start();
 include('config/config.php');
 //login 
-if (isset($_POST['login'])) {
-    $customer_email = $_POST['customer_email'];
-    $customer_password = sha1(md5($_POST['customer_password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT customer_email, customer_password, customer_id  FROM   coffee_shop_customers WHERE customer_email =? AND customer_password =?)"); //sql to log in user
-    $stmt->bind_param('ss',  $customer_email, $customer_password); //bind fetched parameters
-    $stmt->execute(); //execute bind 
-    $stmt->bind_result($customer_email, $customer_password, $customer_id); //bind result
-    $rs = $stmt->fetch();
-    $_SESSION['customer_id'] = $customer_id;
-    if ($rs) {
-        //if its sucessfull
-        header("location:dashboard.php");
+if (isset($_POST['addCustomer'])) {
+    //Prevent Posting Blank Values
+    if (empty($_POST["customer_phoneno"]) || empty($_POST["customer_name"]) || empty($_POST['customer_email']) || empty($_POST['customer_password'])) {
+        $err = "Blank Values Not Accepted";
     } else {
-        $err = "Incorrect Authentication Credentials ";
+        $customer_name = $_POST['customer_name'];
+        $customer_phoneno = $_POST['customer_phoneno'];
+        $customer_email = $_POST['customer_email'];
+        $customer_password = sha1(md5($_POST['customer_password'])); //Hash This 
+        $customer_id = $_POST['customer_id'];
+
+        //Insert Captured information to a database table
+        $postQuery = "INSERT INTO coffee_shop_customers (customer_id, customer_name, customer_phoneno, customer_email, customer_password) VALUES(?,?,?,?,?)";
+        $postStmt = $mysqli->prepare($postQuery);
+        //bind paramaters
+        $rc = $postStmt->bind_param('sssss', $customer_id, $customer_name, $customer_phoneno, $customer_email, $customer_password);
+        $postStmt->execute();
+        //declare a varible which will be passed to alert function
+        if ($postStmt) {
+            $success = "Customer Account Created" && header("refresh:1; url=index.php");
+        } else {
+            $err = "Please Try Again Or Try Later";
+        }
     }
 }
 require_once('partials/_head.php');
+require_once('config/code-generator.php');
 ?>
 
 <body style="background-image: url(../admin/assets/img/theme/auth-bg.png); background-size: cover;" class="bg-default">
@@ -44,6 +54,23 @@ require_once('partials/_head.php');
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        </div>
+                                        <input class="form-control" required name="customer_name" placeholder="Full Name" type="text">
+                                        <input class="form-control" value="<?php echo $cus_id;?>" required name="customer_id"  type="hidden">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        </div>
+                                        <input class="form-control" required name="customer_phoneno" placeholder="Phone Number" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                         </div>
                                         <input class="form-control" required name="customer_email" placeholder="Email" type="email">
@@ -57,16 +84,13 @@ require_once('partials/_head.php');
                                         <input class="form-control" required name="customer_password" placeholder="Password" type="password">
                                     </div>
                                 </div>
-                                <div class="custom-control custom-control-alternative custom-checkbox">
-                                    <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                    <label class="custom-control-label" for=" customCheckLogin">
-                                        <span class="text-muted">Remember me</span>
-                                    </label>
+
+                                <div class="text-center">
                                 </div>
                                 <div class="form-group">
                                     <div class="text-left">
-                                        <button type="submit" name="login" class="btn btn-primary my-4">Log In</button>
-                                        <a href="create_account.php" class=" btn btn-success pull-right">Create Account</a>
+                                        <button type="submit" name="addCustomer" class="btn btn-primary my-4">Create Account</button>
+                                        <a href="index.php" class=" btn btn-success pull-right">Sign In</a>
                                     </div>
                                 </div>
                             </form>
