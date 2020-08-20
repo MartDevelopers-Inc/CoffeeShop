@@ -5,7 +5,7 @@ include('config/config.php');
 if (isset($_POST['login'])) {
     $customer_email = $_POST['customer_email'];
     $customer_password = sha1(md5($_POST['customer_password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT customer_email, customer_password, customer_id  FROM   coffee_shop_customers WHERE customer_email =? AND customer_password =?)"); //sql to log in user
+    $stmt = $mysqli->prepare("SELECT customer_email, customer_password, customer_id  FROM  coffee_shop_customers WHERE (customer_email =? AND customer_password =?)"); //sql to log in user
     $stmt->bind_param('ss',  $customer_email, $customer_password); //bind fetched parameters
     $stmt->execute(); //execute bind 
     $stmt->bind_result($customer_email, $customer_password, $customer_id); //bind result
