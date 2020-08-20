@@ -26,73 +26,62 @@ require_once('partials/_analytics.php');
         <div class="header-body">
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Customers</h5>
-                      <span class="h2 font-weight-bold mb-0"><?php echo $customers; ?></span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
+            <div class="col-xl-4 col-lg-6">
+              <a href="orders.php">
+                <div class="card card-stats mb-4 mb-xl-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Available Products</h5>
+                        <span class="h2 font-weight-bold mb-0"><?php echo $products; ?></span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                          <i class="fas fa-coffee"></i>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Orders</h5>
-                      <span class="h2 font-weight-bold mb-0"><?php echo $orders; ?></span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-shopping-cart"></i>
+            <div class="col-xl-4 col-lg-6">
+              <a href="orders_reports.php">
+                <div class="card card-stats mb-4 mb-xl-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Orders</h5>
+                        <span class="h2 font-weight-bold mb-0"><?php echo $orders; ?></span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                          <i class="fas fa-shopping-cart"></i>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Products</h5>
-                      <span class="h2 font-weight-bold mb-0"><?php echo $products; ?></span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-coffee"></i>
+            <div class="col-xl-4 col-lg-6">
+              <a href="payments_reports.php">
+                <div class="card card-stats mb-4 mb-xl-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Money Spend</h5>
+                        <span class="h2 font-weight-bold mb-0">Ksh <?php echo $sales; ?></span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                          <i class="fas fa-wallet"></i>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">Ksh <?php echo $sales; ?></span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-wallet"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
