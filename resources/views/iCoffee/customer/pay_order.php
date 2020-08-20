@@ -11,36 +11,46 @@ if (isset($_POST['pay'])) {
   if (empty($_POST["pay_code"]) || empty($_POST["pay_amt"]) || empty($_POST['pay_method'])) {
     $err = "Blank Values Not Accepted";
     //Perform Regex On Payments
+    
   } else {
 
-    $pay_code = $_POST['pay_code'];
-    $order_code = $_GET['order_code'];
-    $customer_id = $_GET['customer_id'];
-    $pay_amt  = $_POST['pay_amt'];
-    $pay_method = $_POST['pay_method'];
-    $pay_id = $_POST['pay_id'];
+    $pay_Code = $_POST['pay_code'];
 
-    $order_status = $_GET['order_status'];
+      if(strlen($pay_Code) < 10 ||  strlen($pay_Code > 10))
+      {
+        $err = "Payment Code Verification Failed, Please Try Again";
+      }
+      else
+      {
+          $pay_code = $_POST['pay_code'];
+          $order_code = $_GET['order_code'];
+          $customer_id = $_GET['customer_id'];
+          $pay_amt  = $_POST['pay_amt'];
+          $pay_method = $_POST['pay_method'];
+          $pay_id = $_POST['pay_id'];
 
-    //Insert Captured information to a database table
-    $postQuery = "INSERT INTO coffee_shop_payments (pay_id, pay_code, order_code, customer_id, pay_amt, pay_method) VALUES(?,?,?,?,?,?)";
-    $upQry = "UPDATE coffee_shop_orders SET order_status =? WHERE order_code =?";
+          $order_status = $_GET['order_status'];
 
-    $postStmt = $mysqli->prepare($postQuery);
-    $upStmt = $mysqli->prepare($upQry);
-    //bind paramaters
+          //Insert Captured information to a database table
+          $postQuery = "INSERT INTO coffee_shop_payments (pay_id, pay_code, order_code, customer_id, pay_amt, pay_method) VALUES(?,?,?,?,?,?)";
+          $upQry = "UPDATE coffee_shop_orders SET order_status =? WHERE order_code =?";
 
-    $rc = $postStmt->bind_param('ssssss', $pay_id, $pay_code, $order_code, $customer_id, $pay_amt, $pay_method);
-    $rc = $upStmt->bind_param('ss', $order_status, $order_code);
+          $postStmt = $mysqli->prepare($postQuery);
+          $upStmt = $mysqli->prepare($upQry);
+          //bind paramaters
 
-    $postStmt->execute();
-    $upStmt->execute();
-    //declare a varible which will be passed to alert function
-    if ($upStmt && $postStmt) {
-      $success = "Paid" && header("refresh:1; url=payments_reports.php");
-    } else {
-      $err = "Please Try Again Or Try Later";
-    }
+          $rc = $postStmt->bind_param('ssssss', $pay_id, $pay_code, $order_code, $customer_id, $pay_amt, $pay_method);
+          $rc = $upStmt->bind_param('ss', $order_status, $order_code);
+
+          $postStmt->execute();
+          $upStmt->execute();
+          //declare a varible which will be passed to alert function
+          if ($upStmt && $postStmt) {
+              $success = "Paid" && header("refresh:1; url=payments_reports.php");
+          } else {
+              $err = "Please Try Again Or Try Later";
+          }
+      }
   }
 }
 require_once('partials/_head.php');
