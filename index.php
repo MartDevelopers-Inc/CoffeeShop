@@ -5,7 +5,7 @@
 		$uri = 'http://';
 	}
 	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/CoffeeShop/resources/views/Coffee_Pos_Core/admin/');
+	header('Location: '.$uri.'/CoffeeShop/resources/views/');
 	exit;
 ?>
 Something is wrong here and i can feel it
