@@ -121,7 +121,7 @@ require_once('partials/_analytics.php');
                     <th scope="col">Customer</th>
                     <th class="text-success" scope="col">Product</th>
                     <th scope="col">Unit Price</th>
-                    <th class="text-success" scope="col">Quantity</th>
+                    <th class="text-success" scope="col">#</th>
                     <th scope="col">Total Price</th>
                     <th scop="col">Status</th>
                     <th class="text-success" scope="col">Date</th>
