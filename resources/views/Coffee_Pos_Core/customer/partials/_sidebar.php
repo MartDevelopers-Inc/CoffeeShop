@@ -1,11 +1,11 @@
 <?php
-$staff_id = $_SESSION['staff_id'];
+$customer_id = $_SESSION['customer_id'];
 //$login_id = $_SESSION['login_id'];
-$ret = "SELECT * FROM  coffee_shop_staff  WHERE staff_id = '$staff_id'";
+$ret = "SELECT * FROM  coffee_shop_customers  WHERE customer_id = '$customer_id'";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute();
 $res = $stmt->get_result();
-while ($staff_id = $res->fetch_object()) {
+while ($customer = $res->fetch_object()) {
 
 ?>
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
@@ -31,7 +31,7 @@ while ($staff_id = $res->fetch_object()) {
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="../assets/img/">
+                <img alt='Image placeholder' src='../admin/assets/img/brand/blue.png'>
               </span>
             </div>
           </a>
@@ -88,28 +88,18 @@ while ($staff_id = $res->fetch_object()) {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="customes.php">
-              <i class="fas fa-users text-primary"></i> Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="products.php">
-              <i class="ni ni-tag text-primary"></i>Products
+            <a class="nav-link" href="profile.php">
+              <i class="fas fa-users text-primary"></i> My Profile
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="orders.php">
-              <i class="ni ni-cart text-primary"></i> Orders
+              <i class="ni ni-cart text-primary"></i>Make Order
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="payments.php">
               <i class="ni ni-credit-card text-primary"></i> Payments
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="receipts.php">
-              <i class="fas fa-file-invoice-dollar text-primary"></i> Receipts
             </a>
           </li>
         </ul>
@@ -121,12 +111,12 @@ while ($staff_id = $res->fetch_object()) {
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
             <a class="nav-link" href="orders_reports.php">
-              <i class="fas fa-shopping-basket"></i> Orders
+              <i class="fas fa-shopping-basket"></i> My Orders
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="payments_reports.php">
-              <i class="fas fa-funnel-dollar"></i> Payments
+              <i class="fas fa-funnel-dollar"></i> My Payments
             </a>
           </li>
         </ul>
