@@ -16,10 +16,15 @@ if (isset($_POST['pay'])) {
 
     $pay_Code = $_POST['pay_code'];
 
-      if(strlen($pay_Code) < 10 ||  strlen($pay_Code > 10))
+      if(strlen($pay_Code) < 10 )
       {
         $err = "Payment Code Verification Failed, Please Try Again";
       }
+      elseif(strlen($pay_Code) > 10)
+      {
+        $err = "Payment Code Verification Failed, Please Try Again";
+      }
+      
       else
       {
           $pay_code = $_POST['pay_code'];
@@ -100,7 +105,7 @@ require_once('partials/_head.php');
                   </div>
                   <div class="col-md-6">
                     <label>Payment Code</label><small class="text-danger"> Type Null If Payment Method Is In Cash</small>
-                    <input type="text" name="pay_code" value="<?php echo $mpesaCode; ?>" class="form-control" value="">
+                    <input type="text" limit="11" name="pay_code" placeholder="<?php echo $mpesaCode; ?>" class="form-control" value="">
                   </div>
                 </div>
                 <hr>
