@@ -60,7 +60,7 @@ while ($order = $res->fetch_object()) {
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                             <p>
-                                <em>Date: <?php echo date('d/M/Y g:i'); ?></em>
+                                <em>Date: <?php echo date('d/M/Y g:i', strtotime($order->created_at)); ?></em>
                             </p>
                             <p>
                                 <em class="text-success">Receipt #: <?php echo $order->order_code; ?></em>
