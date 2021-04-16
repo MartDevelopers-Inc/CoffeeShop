@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/MartDevelopers-Inc/CoffeeShop/blob/master/resources/views/iCoffee/admin/assets/img/brand/blue.png" width="400"></p>
+<p align="center"><img src="https://github.com/MartDevelopers-Inc/CoffeeShop/blob/master/iCoffee/admin/assets/img/brand/blue.png" width="400"></p>
 
 ## About iCoffeePos
  Just A PHP Powered CoffeeShop-POS.
